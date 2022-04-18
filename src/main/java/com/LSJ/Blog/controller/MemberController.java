@@ -13,19 +13,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class MemberController {
     private final MemberService memberService;
 
-    //  html을 보여주는 url show
-    //  실제 기능이 실해될 url de
-    @GetMapping("members/join")
+    @GetMapping("/members/join")
     public  String showJoin(){
-        return  "/usr/member/join";
+        return  "usr/member/join";
     }
 
-    @PostMapping("members/join")
+    @PostMapping("/members/join")
     public String doJoin(MemberSaveForm memberSaveForm){
 
         memberService.save(memberSaveForm);
 
         return "redirect:/";
+    }
+
+    @GetMapping("/members/login")
+    public String showLogin(){
+        return "usr/member/login";
     }
 
 }
