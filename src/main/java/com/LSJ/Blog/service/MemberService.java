@@ -5,10 +5,11 @@ import com.LSJ.Blog.dao.MemberRepository;
 import com.LSJ.Blog.domain.Member;
 import com.LSJ.Blog.dto.member.MemberSaveForm;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -31,5 +32,15 @@ public class MemberService {
                 Role.MEMBER
         );
         memberRepository.save(member);
+    }
+
+    public Member findByLoginId(String loginId) throws IllegalStateException {
+
+        Optional<Member> memberOptional = memberRepository.findByLoginId(loginId);
+
+        memberOptional.orElseThrow(
+                () -> new IllegalStateException("존재하지 않는 회원입니다.")
+        );
+        return memberOptional.get();
     }
 }
