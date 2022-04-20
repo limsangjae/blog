@@ -3,6 +3,7 @@ package com.LSJ.Blog.service;
 import com.LSJ.Blog.config.Role;
 import com.LSJ.Blog.dao.MemberRepository;
 import com.LSJ.Blog.domain.Member;
+import com.LSJ.Blog.dto.member.MemberModifyForm;
 import com.LSJ.Blog.dto.member.MemberSaveForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -53,5 +54,21 @@ public class MemberService implements UserDetailsService {
         return memberRepository.findByLoginId(longinId).orElseThrow(
                 () -> new NoSuchElementException("해당 회원은 존재하지 않습니다.")
         );
+    }
+    @Transactional
+    public Long modifyMember(MemberModifyForm memberModifyForm, String loginID) {
+
+        Member findMember = findByLoginId(loginID);
+
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+
+        findMember.modifyMember(
+                bCryptPasswordEncoder.encode(memberModifyForm.getLoginPw()),
+                memberModifyForm.getNickname(),
+                memberModifyForm.getEmail()
+        );
+
+        return  findMember.getId();
+
     }
 }
