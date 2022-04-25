@@ -55,10 +55,10 @@ public class MemberService implements UserDetailsService {
                 () -> new NoSuchElementException("해당 회원은 존재하지 않습니다.")
         );
     }
-    @Transactional
+    @Transactional                          //새로 바뀐 데이터
     public Long modifyMember(MemberModifyForm memberModifyForm, String loginID) {
 
-        Member findMember = findByLoginId(loginID);
+        Member findMember = findByLoginId(loginID); //바꾸기 전 데이터
 
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 

@@ -41,6 +41,7 @@ public class MemberController {
     public String showModify(@PathVariable(name = "loginId") String loginId, Principal principal, Model model){
 
         Member findMember = memberService.findByLoginId(loginId);
+
         if(!findMember.getLoginId().equals(principal.getName())){
             return "redirect:/";
         }
