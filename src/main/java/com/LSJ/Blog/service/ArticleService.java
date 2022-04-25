@@ -3,6 +3,7 @@ package com.LSJ.Blog.service;
 import com.LSJ.Blog.dao.ArticleRepository;
 import com.LSJ.Blog.domain.Article;
 import com.LSJ.Blog.domain.Member;
+import com.LSJ.Blog.dto.article.ArticleModifyForm;
 import com.LSJ.Blog.dto.article.ArticleSaveForm;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -29,5 +31,23 @@ public class ArticleService {
         article.setMember(member);
 
         articleRepository.save(article);
+    }
+    public Article findById(Long id){
+        Optional<Article> articleOptional = articleRepository.findById(id);
+        articleOptional.orElseThrow(
+                ()-> new IllegalStateException("존재하지 않는 게시글 입니다.")
+        );
+        return articleOptional.get();
+    }
+
+    @Transactional
+    public void modifyArticle(ArticleModifyForm articleModifyForm, Long id) {
+
+        Article findArticle = findById(id);
+
+        findArticle.modifyArticle(
+                articleModifyForm.getTitle(),
+                articleModifyForm.getBody()
+        );
     }
 }

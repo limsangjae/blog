@@ -1,13 +1,17 @@
 package com.LSJ.Blog.controller;
 
+import com.LSJ.Blog.domain.Article;
 import com.LSJ.Blog.domain.Member;
+import com.LSJ.Blog.dto.article.ArticleModifyForm;
 import com.LSJ.Blog.dto.article.ArticleSaveForm;
+import com.LSJ.Blog.dto.member.MemberModifyForm;
 import com.LSJ.Blog.service.ArticleService;
 import com.LSJ.Blog.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
@@ -40,7 +44,27 @@ public class ArticleController {
         }
 
         return "redirect:/";
+    }
+    @GetMapping("/articles/modify/{id}")
+    public String showModify(@PathVariable(name = "id") Long id, Principal principal, Model model){
 
+        Article findArticle = articleService.findById(id);
+
+        if(!findArticle.getMember().getLoginId().equals(principal.getName())){
+            return "redirect:/";
+        }
+        model.addAttribute("articleModifyForm", new ArticleModifyForm(findArticle));
+        model.addAttribute("id",id);
+
+        return "usr/article/modify";
+
+    }
+    @PostMapping("/articles/modify/{id}")
+    public String doModify(@PathVariable(name = "id")Long id, ArticleModifyForm articleModifyForm){
+
+        articleService.modifyArticle(articleModifyForm, id);
+
+        return "redirect:/";
 
     }
 
