@@ -2,6 +2,8 @@ package com.LSJ.Blog.controller;
 
 import com.LSJ.Blog.domain.Article;
 import com.LSJ.Blog.domain.Member;
+import com.LSJ.Blog.dto.article.ArticleDTO;
+import com.LSJ.Blog.dto.article.ArticleListDTO;
 import com.LSJ.Blog.dto.article.ArticleModifyForm;
 import com.LSJ.Blog.dto.article.ArticleSaveForm;
 import com.LSJ.Blog.dto.member.MemberModifyForm;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -66,6 +69,14 @@ public class ArticleController {
 
         return "redirect:/";
 
+    }
+    @GetMapping("/articles")
+    public String showList(Model model){
+        List<ArticleListDTO> articles = articleService.getArticleList();
+
+        model.addAttribute("articles",articles);
+
+        return "usr/article/list";
     }
 
 
