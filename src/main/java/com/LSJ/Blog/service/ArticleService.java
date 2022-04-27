@@ -69,8 +69,15 @@ public class ArticleService {
         }
         return articleDTOList;
 
+    }
 
+    public ArticleDTO getArticle(Long id) {
 
+        Article findArticle = findById(id);
+
+        ArticleDTO articleDTO = new ArticleDTO(findArticle);
+
+        return articleDTO;
 
     }
 }

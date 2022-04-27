@@ -79,5 +79,15 @@ public class ArticleController {
         return "usr/article/list";
     }
 
+    @GetMapping("/articles/{id}")
+    public String showDetail(@PathVariable(name = "id") Long id, Model model){
+
+        ArticleDTO findArticle = articleService.getArticle(id);
+
+        model.addAttribute("article",findArticle);
+
+        return "usr/article/detail";
+    }
+
 
 }
