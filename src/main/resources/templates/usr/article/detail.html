@@ -1,13 +1,17 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
 <head>
     <meta charset="UTF-8">
     <title>게시글 상세보기</title>
 </head>
 <body>
+<div layout:fragment="contents">
 
     <div class="">
         <div class="">
+
             <div class="">
                 <h1>게시글 제목 : </h1>
                 <h1 th:text="${article.title}"></h1>
@@ -23,7 +27,9 @@
                         <th>게시글 작성일</th>
                         <th>게시글 수정일</th>
                     </tr>
+
                 </thead>
+
                 <tbody>
                     <tr>
                         <td>
@@ -39,10 +45,10 @@
                             <span th:text="${article.nickname}"></span>
                         </td>
                         <td>
-                            <span th:text="${#temporals.format(article.regDate,'yyyy-MM-dd')}"></span>
+                            <span th:text="${#temporals.format(article.regDate, 'yyyy-MM-dd')}"></span>
                         </td>
                         <td>
-                            <span th:text="${#temporals.format(article.updateDate,'yyyy-MM-dd')}"></span>
+                            <span th:text="${#temporals.format(article.updateDate, 'yyyy-MM-dd')}"></span>
                         </td>
                         <td>
                             <div class="">
@@ -58,9 +64,12 @@
                         </td>
                     </tr>
                 </tbody>
+
+
             </table>
+
         </div>
     </div>
-
+</div>
 </body>
 </html>
