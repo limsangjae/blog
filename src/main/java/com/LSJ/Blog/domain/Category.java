@@ -5,12 +5,15 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
 @NoArgsConstructor
 public class Category {
     @Id
+    @Column(name = "category_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -19,6 +22,9 @@ public class Category {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
+
+    @OneToMany(mappedBy = "category", cascade = CascadeType.REMOVE)
+    private List<Article> articles =  new ArrayList<>();
 
     private LocalDateTime regDate = LocalDateTime.now();
 
@@ -33,6 +39,7 @@ public class Category {
     }
     public void setMember(Member member){
         this.member = member;
-
+        member.getCategories().add(this);
     }
+
 }

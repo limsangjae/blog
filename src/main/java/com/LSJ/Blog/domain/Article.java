@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class Article {
     @Id
+    @Column(name = "article_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    @Column(name = "article_id") DB에 들어가는 필드 이름바꾸는법
     private Long id;
@@ -22,6 +23,10 @@ public class Article {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private Category category;
 
 
     private LocalDateTime regDate = LocalDateTime.now();

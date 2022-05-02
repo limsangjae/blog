@@ -23,7 +23,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests(authorize -> authorize
                         .mvcMatchers("/members/join", "/members/login").anonymous()
-                        .mvcMatchers("/","/articles/**").permitAll()
+                        .mvcMatchers("/",
+                                "/articles/**",
+                                "/categories/**").permitAll()
                         .mvcMatchers("/members/**").hasRole("MEMBER")
                 )
                 .formLogin()
