@@ -47,7 +47,7 @@ public class ArticleService {
     }
 
     @Transactional
-    public void modifyArticle(ArticleModifyForm articleModifyForm, Long id) {
+    public void modifyArticle(ArticleModifyForm articleModifyForm, Long id, Category category) {
 
         Article findArticle = findById(id);
 
@@ -55,6 +55,7 @@ public class ArticleService {
                 articleModifyForm.getTitle(),
                 articleModifyForm.getBody()
         );
+        findArticle.setCategory(category);
     }
 
     public List<ArticleListDTO> getArticleList() {
