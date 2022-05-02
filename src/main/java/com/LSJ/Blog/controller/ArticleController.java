@@ -1,6 +1,7 @@
 package com.LSJ.Blog.controller;
 
 import com.LSJ.Blog.domain.Article;
+import com.LSJ.Blog.domain.Category;
 import com.LSJ.Blog.domain.Member;
 import com.LSJ.Blog.dto.article.ArticleDTO;
 import com.LSJ.Blog.dto.article.ArticleListDTO;
@@ -8,6 +9,7 @@ import com.LSJ.Blog.dto.article.ArticleModifyForm;
 import com.LSJ.Blog.dto.article.ArticleSaveForm;
 import com.LSJ.Blog.dto.member.MemberModifyForm;
 import com.LSJ.Blog.service.ArticleService;
+import com.LSJ.Blog.service.CategoryService;
 import com.LSJ.Blog.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -26,20 +28,26 @@ public class ArticleController {
     private final ArticleService articleService;
 
     private  final MemberService memberService;
+    private  final CategoryService categoryService;
 
     @GetMapping("/articles/write")
-    public String showWrite(){
+    public String showWrite(Model model)
+    {
+        model.addAttribute("categoryList",categoryService.findAll());
         return "usr/article/write";
+
     }
 
     @PostMapping("/articles/write")
     public String doWrite(ArticleSaveForm articleSaveForm, Principal principal, Model model){
         try {
+            Category findCategory = categoryService.findById(articleSaveForm.getCategoryId());
             Member findMember = memberService.findByLoginId(principal.getName());
 
             articleService.save(
                     articleSaveForm,
-                    findMember
+                    findMember,
+                    findCategory
             );
         }catch (IllegalStateException e){
             model.addAttribute("err_msg", e.getMessage());

@@ -2,6 +2,7 @@ package com.LSJ.Blog.service;
 
 import com.LSJ.Blog.dao.ArticleRepository;
 import com.LSJ.Blog.domain.Article;
+import com.LSJ.Blog.domain.Category;
 import com.LSJ.Blog.domain.Member;
 import com.LSJ.Blog.dto.article.ArticleDTO;
 import com.LSJ.Blog.dto.article.ArticleListDTO;
@@ -26,13 +27,14 @@ public class ArticleService {
     private final ArticleRepository articleRepository;
 
     @Transactional
-    public void save(ArticleSaveForm articleSaveForm, Member member) {
+    public void save(ArticleSaveForm articleSaveForm, Member member, Category category) {
         Article article = Article.createArticle(
             articleSaveForm.getTitle(),
             articleSaveForm.getBody()
         );
 
         article.setMember(member);
+        article.setCategory(category);
 
         articleRepository.save(article);
     }

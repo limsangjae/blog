@@ -8,6 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.NoSuchElementException;
+
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -24,5 +27,17 @@ public class CategoryService {
         category.setMember(findMember);
 
         categoryRepository.save(category);
+    }
+
+    public List<Category> findAll() {
+        return categoryRepository.findAll();
+    }
+
+    public Category findById(Long id) {
+
+        return  categoryRepository.findById(id).orElseThrow(
+                () -> {throw new NoSuchElementException("해당 카테고리는 존재하지 않습니다.");
+                }
+        );
     }
 }

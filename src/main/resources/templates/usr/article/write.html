@@ -12,7 +12,11 @@
             <h1>게시글 작성</h1>
 
             <form th:action="@{~/articles/write}" method="post">
-
+                <select class="select w-full max-w-xs" name="categoryId" required>
+                    <th:block th:each="category : ${categoryList}">
+                        <option th:value="${category.id}" th:text="${category.name}"></option>
+                    </th:block>
+                </select>
                 <div class="">
                     <span>제목</span>
                     <input type="text" name="title" placeholder="제목을 입력해 주세요." required>
