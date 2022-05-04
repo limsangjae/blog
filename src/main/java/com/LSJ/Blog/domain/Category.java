@@ -42,4 +42,9 @@ public class Category {
         member.getCategories().add(this);
     }
 
+    public void modifyCategory(Long id , String name){
+        this.id = id;
+        this.name = name;
+    }
+
 }
