@@ -3,12 +3,14 @@ package com.LSJ.Blog.service;
 import com.LSJ.Blog.dao.CategoryRepository;
 import com.LSJ.Blog.domain.Category;
 import com.LSJ.Blog.domain.Member;
+import com.LSJ.Blog.dto.category.CategoryListDTO;
 import com.LSJ.Blog.dto.category.CategoryModifyForm;
 import com.LSJ.Blog.dto.category.CategorySaveForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -30,8 +32,15 @@ public class CategoryService {
         categoryRepository.save(category);
     }
 
-    public List<Category> findAll() {
-        return categoryRepository.findAll();
+    public List<CategoryListDTO> findAll() {
+        List<Category> categoryList = categoryRepository.findAll();
+
+        List<CategoryListDTO> categoryListDTOS = new ArrayList<>();
+        for(Category category : categoryList){
+            CategoryListDTO categoryListDTO = new CategoryListDTO(category);
+            categoryListDTOS.add(categoryListDTO);
+        }
+        return categoryListDTOS;
     }
 
     public Category findById(Long id) {
