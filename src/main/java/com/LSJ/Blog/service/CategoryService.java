@@ -1,8 +1,10 @@
 package com.LSJ.Blog.service;
 
 import com.LSJ.Blog.dao.CategoryRepository;
+import com.LSJ.Blog.domain.Article;
 import com.LSJ.Blog.domain.Category;
 import com.LSJ.Blog.domain.Member;
+import com.LSJ.Blog.dto.category.CategoryDTO;
 import com.LSJ.Blog.dto.category.CategoryListDTO;
 import com.LSJ.Blog.dto.category.CategoryModifyForm;
 import com.LSJ.Blog.dto.category.CategorySaveForm;
@@ -58,6 +60,21 @@ public class CategoryService {
                 categoryModifyForm.getId(),
                 categoryModifyForm.getName()
         );
+
+    }
+
+    public CategoryDTO getCategory(Long id) {
+
+        Category findCategory = findById(id);
+
+        List<Article> articles = findCategory.getArticles();
+
+        CategoryDTO categoryDTO = new CategoryDTO();
+
+        for(Article article : articles){
+            categoryDTO.setCategoryDTO(findCategory, article);
+        }
+        return categoryDTO;
 
     }
 }

@@ -2,6 +2,7 @@ package com.LSJ.Blog.controller;
 
 import com.LSJ.Blog.domain.Category;
 import com.LSJ.Blog.domain.Member;
+import com.LSJ.Blog.dto.category.CategoryDTO;
 import com.LSJ.Blog.dto.category.CategoryListDTO;
 import com.LSJ.Blog.dto.category.CategoryModifyForm;
 import com.LSJ.Blog.dto.category.CategorySaveForm;
@@ -25,12 +26,12 @@ public class CategoryController {
     private final MemberService memberService;
 
     @GetMapping("/categories/create")
-    public String showCreate(){
+    public String showCreate() {
         return "usr/category/create";
     }
 
     @PostMapping("/categories/create")
-    public String doCreate(CategorySaveForm categorySaveForm, Principal principal){
+    public String doCreate(CategorySaveForm categorySaveForm, Principal principal) {
 
         Member findMember = memberService.findByLoginId(principal.getName());
 
@@ -39,33 +40,45 @@ public class CategoryController {
 
         return "redirect:/";
     }
+
     @GetMapping("/categories/modify/{id}")
-    public String showModify(@PathVariable(name = "id") Long id, CategoryModifyForm categoryModifyForm, Model model){
+    public String showModify(@PathVariable(name = "id") Long id, CategoryModifyForm categoryModifyForm, Model model) {
 
         Category findCategory = categoryService.findById(id);
 
-        model.addAttribute("id",id);
-        model.addAttribute("categoryModifyForm",new CategoryModifyForm(findCategory));
+        model.addAttribute("id", id);
+        model.addAttribute("categoryModifyForm", new CategoryModifyForm(findCategory));
 
         return "usr/category/modify";
     }
+
     @PostMapping("/categories/modify/{id}")
-    public String doModify(@PathVariable(name = "id") Long id, CategoryModifyForm categoryModifyForm, Principal principal){
+    public String doModify(@PathVariable(name = "id") Long id, CategoryModifyForm categoryModifyForm, Principal principal) {
         Category findCategory = categoryService.findById(id);
-        if(!findCategory.getMember().getLoginId().equals(principal.getName())){
+        if (!findCategory.getMember().getLoginId().equals(principal.getName())) {
             return "redirect:/";
         }
-        categoryService.modifyCategory(categoryModifyForm,id);
+        categoryService.modifyCategory(categoryModifyForm, id);
 
         return "redirect:/";
     }
+
     @GetMapping("/categories")
-    public String showCategory(Model model){
+    public String showCategory(Model model) {
         List<CategoryListDTO> categoryList = categoryService.findAll();
-        model.addAttribute("categoryList",categoryList);
+        model.addAttribute("categoryList", categoryList);
 
 
         return "usr/category/list";
     }
 
+    @GetMapping("/categories/{id}")
+    public String showDetail(@PathVariable(name = "id") Long id, Model model) {
+        CategoryDTO category = categoryService.getCategory(id);
+
+        model.addAttribute("name", category.getName());
+        model.addAttribute("category", category);
+
+        return "usr/category/detail";
+    }
 }
