@@ -17,11 +17,11 @@
             <table>
                 <thead>
                     <tr>
-                        <th>게시글 제목</th>
+                        <th>게시글 목록</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="article : ${category} ">
+                    <tr th:each="article : ${articles} ">
                         <td>
                             <span th:text="${article.title}"></span>
                         </td>

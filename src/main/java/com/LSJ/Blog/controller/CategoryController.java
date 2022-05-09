@@ -78,6 +78,7 @@ public class CategoryController {
 
         model.addAttribute("name", category.getName());
         model.addAttribute("category", category);
+        model.addAttribute("articles", category.getArticles());
 
         return "usr/category/detail";
     }
