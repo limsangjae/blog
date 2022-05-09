@@ -72,4 +72,9 @@ public class CategoryService {
         return categoryDTO;
 
     }
+    @Transactional
+    public void delete(Long id) {
+        Category findCategory = findById(id);
+        categoryRepository.delete(findCategory);
+    }
 }

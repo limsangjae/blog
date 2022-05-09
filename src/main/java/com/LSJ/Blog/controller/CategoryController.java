@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
+import java.security.SecureRandom;
 import java.util.List;
 
 @Controller
@@ -77,9 +78,17 @@ public class CategoryController {
         CategoryDTO category = categoryService.getCategory(id);
 
         model.addAttribute("name", category.getName());
-        model.addAttribute("category", category);
         model.addAttribute("articles", category.getArticles());
 
         return "usr/category/detail";
+    }
+    @GetMapping("/categories/delete/{id}")
+    public String deleteCategory(@PathVariable(name = "id")Long id, Principal principal){
+        Category findCategory = categoryService.findById(id);
+        if(!findCategory.getMember().getLoginId().equals(principal.getName())){
+            return "redirect:/";
+        }
+        categoryService.delete(id);
+        return "redirect:/categories";
     }
 }
