@@ -23,12 +23,14 @@
 
                 <div class="">
                     <span>제목</span>
-                    <input type="text" name="title" th:field="*{title}">
+                    <input type="text" name="title" th:field="*{title}" th:errorclass="field-error">
+                    <span th:errors="*{title}">error!</span>
                 </div>
 
                 <div class="">
                     <span>내용</span>
-                    <input type="text" name="body" th:field="*{body}">
+                    <input type="text" name="body" th:field="*{body}" th:errorclass="field-error">
+                    <span th:errors="*{body}">error!</span>
                 </div>
 
                 <div class="">

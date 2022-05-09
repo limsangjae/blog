@@ -15,7 +15,8 @@
             <form th:action="@{~/categories/modify/}+${id}" th:object="${categoryModifyForm}" method="post">
                 <div class="">
                     <span>카테고리 이름</span>
-                    <input type="text" name="name" th:field="*{name}">
+                    <input type="text" name="name" th:field="*{name}" th:errorclass="field-error">
+                    <span th:errors="*{name}">error!</span>
                 </div>
 
                 <div class="">

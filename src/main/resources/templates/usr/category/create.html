@@ -13,11 +13,12 @@
     <div class="">
         <div class="">
 
-            <form th:action="@{~/categories/create}" method="post">
+            <form th:action="@{~/categories/create}" th:object="${categorySaveForm}" method="post">
 
                 <div class="">
                     <span>카테고리 이름</span>
-                    <input type="text" name="name" placeholder="카테고리 이름을 입력해 주세요.">
+                    <input type="text" name="name" placeholder="카테고리 이름을 입력해 주세요." th:field="*{name}" th:errorclass="field-error">
+                    <span th:errors="*{name}">error!</span>
                 </div>
 
                 <div class="">

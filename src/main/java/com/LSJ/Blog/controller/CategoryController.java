@@ -11,6 +11,8 @@ import com.LSJ.Blog.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,12 +29,19 @@ public class CategoryController {
     private final MemberService memberService;
 
     @GetMapping("/categories/create")
-    public String showCreate() {
+    public String showCreate(Model model, CategorySaveForm categorySaveForm) {
+
+        model.addAttribute("categorySaveForm",categorySaveForm);
+
         return "usr/category/create";
     }
 
     @PostMapping("/categories/create")
-    public String doCreate(CategorySaveForm categorySaveForm, Principal principal) {
+    public String doCreate(@Validated CategorySaveForm categorySaveForm, BindingResult bindingResult, Principal principal ) {
+
+        if(bindingResult.hasErrors()){
+            return "usr/category/create";
+        }
 
         Member findMember = memberService.findByLoginId(principal.getName());
 
@@ -54,8 +63,14 @@ public class CategoryController {
     }
 
     @PostMapping("/categories/modify/{id}")
-    public String doModify(@PathVariable(name = "id") Long id, CategoryModifyForm categoryModifyForm, Principal principal) {
+    public String doModify(@PathVariable(name = "id") Long id,@Validated CategoryModifyForm categoryModifyForm ,BindingResult bindingResult, Principal principal) {
+
+        if(bindingResult.hasErrors()){
+            return "usr/category/modify";
+        }
+
         Category findCategory = categoryService.findById(id);
+
         if (!findCategory.getMember().getLoginId().equals(principal.getName())) {
             return "redirect:/";
         }
