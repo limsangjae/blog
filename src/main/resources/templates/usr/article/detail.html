@@ -68,6 +68,17 @@
 
             </table>
 
+            <div class="">
+                <div class="">
+                    <h1>댓글</h1>
+                </div>
+                <form th:action="@{~/articles/} + ${article.id} + @{/reply}">
+                    <div class="">
+                        <input type="text">
+                    </div>
+                </form>
+            </div>
+
         </div>
     </div>
 </div>
