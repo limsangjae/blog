@@ -37,9 +37,12 @@ public class Member implements UserDetails {
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
     private List<Category> categories = new ArrayList<>();
 
+<<<<<<< HEAD
     @OneToMany(mappedBy = "member",cascade = CascadeType.REMOVE)
     private List<Reply> replies = new ArrayList<>();
 
+=======
+>>>>>>> 634bd51c0a5fc012ab2fa6d1f987dd353396c7cd
     private LocalDateTime regDate = LocalDateTime.now();
     private LocalDateTime updateDate = LocalDateTime.now();
 

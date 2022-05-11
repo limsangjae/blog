@@ -45,7 +45,10 @@ public class ArticleController {
     public String doWrite(@Validated ArticleSaveForm articleSaveForm, BindingResult bindingResult, Principal principal, Model model){
 
         if (bindingResult.hasErrors()){
+<<<<<<< HEAD
             model.addAttribute("categoryList",categoryService.findAll());
+=======
+>>>>>>> 634bd51c0a5fc012ab2fa6d1f987dd353396c7cd
             return "usr/article/write";
         }
 

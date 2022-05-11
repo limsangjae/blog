@@ -5,8 +5,11 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.List;
+=======
+>>>>>>> 634bd51c0a5fc012ab2fa6d1f987dd353396c7cd
 
 @Entity
 @Getter
@@ -30,9 +33,12 @@ public class Article {
     @JoinColumn(name = "category_id")
     private Category category;
 
+<<<<<<< HEAD
     @OneToMany(mappedBy = "article")
     private List<Reply> replies = new ArrayList<>();
 
+=======
+>>>>>>> 634bd51c0a5fc012ab2fa6d1f987dd353396c7cd
 
     private LocalDateTime regDate = LocalDateTime.now();
 
