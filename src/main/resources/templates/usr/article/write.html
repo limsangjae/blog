@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 작성</title>
+</head>
+<body>
+<div layout:fragment="contents">
+    <div class="">
+        <div class="">
+
+             <h1>게시글 작성</h1>
+
+            <form th:action="@{~/articles/write}" th:object="${articleSaveForm}" method="post">
+
+                <select class="select select-bordered w-full max-w-xs" name="categoryId" required>
+                    <th:block th:each="category : ${categoryList}">
+                        <option th:value="${category.id}" th:text="${category.name}"></option>
+                    </th:block>
+                </select>
+
+
+                <div class="">
+                    <span>제목</span>
+                    <input type="text" name="title" placeholder="제목을 입력해 주세요." th:field="*{title}" th:errorclass="field-error">
+                    <span th:errors="*{title}">error!</span>
+                </div>
+                <div class="">
+
+                    <span>내용</span>
+                    <input type="text" name="body" placeholder="내용을 입력해 주세요." th:field="*{body}" th:errorclass="field-error">
+                    <span th:errors="*{body}">error!</span>
+                </div>
+
+                <div class="">
+                    <button>작성</button>
+                    <a href="/">
+                        <button>취소</button>
+                    </a>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
