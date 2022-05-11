@@ -68,20 +68,24 @@
 
             </table>
 
-<<<<<<< HEAD
             <div class="">
                 <div class="">
-                    <h1>댓글</h1>
+                    <h1 class="text-xl">댓글</h1>
                 </div>
-                <form th:action="@{~/articles/} + ${article.id} + @{/reply}">
+                <form th:action="@{~/articles/} + ${article.id} + @{/replies}" method="post">
                     <div class="">
-                        <input type="text">
+                        <span>댓글</span>
+                        <input type="text" name="body" placeholder="댓글을 입력해 주세요.">
+                    </div>
+                    <div class="">
+                        <button>작성</button>
+                        <a href="/">
+                            <button type="button">취소</button>
+                        </a>
                     </div>
                 </form>
             </div>
 
-=======
->>>>>>> 634bd51c0a5fc012ab2fa6d1f987dd353396c7cd
         </div>
     </div>
 </div>

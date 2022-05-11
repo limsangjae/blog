@@ -1,5 +1,6 @@
 package com.LSJ.Blog.domain;
 
+import com.LSJ.Blog.dto.reply.ReplyModifyForm;
 import com.LSJ.Blog.dto.reply.ReplySaveForm;
 import lombok.Getter;
 
@@ -33,6 +34,10 @@ public class Reply {
         reply.body = replySaveForm.getBody();
 
         return reply;
+    }
+    public void modifyReply(ReplyModifyForm replyModifyForm){
+
+        this.body = replyModifyForm.getBody();
     }
     public void setMember(Member member){
         member.getReplies().add(this);
