@@ -86,6 +86,16 @@
                 </form>
             </div>
 
+            <hr>
+
+            <div class="">
+
+                <div th:each="reply : ${replies}">
+                    <span th:text="${reply.body}"></span>
+                    <span th:text="${reply.regDate}"></span>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
