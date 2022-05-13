@@ -62,6 +62,6 @@ public class ReplyController {
 
         replyService.deleteReply(findArticle, findMember, findReply);
 
-        return "redirect:/articles" + articleId;
+        return "redirect:/articles/" + articleId;
     }
 }
