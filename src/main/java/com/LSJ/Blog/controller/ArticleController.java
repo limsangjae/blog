@@ -11,6 +11,7 @@ import com.LSJ.Blog.dto.member.MemberModifyForm;
 import com.LSJ.Blog.service.ArticleService;
 import com.LSJ.Blog.service.CategoryService;
 import com.LSJ.Blog.service.MemberService;
+import com.LSJ.Blog.service.ReplyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +32,8 @@ public class ArticleController {
 
     private  final MemberService memberService;
     private  final CategoryService categoryService;
+
+    private  final ReplyService replyService;
 
     @GetMapping("/articles/write")
     public String showWrite(Model model, ArticleSaveForm articleSaveForm)
@@ -111,6 +114,7 @@ public class ArticleController {
 
         model.addAttribute("article",findArticle);
         model.addAttribute("replies",findArticle.getReplies());
+        model.addAttribute("replyList", replyService.getDtoList());
 
         return "usr/article/detail";
     }

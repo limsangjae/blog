@@ -10,9 +10,7 @@ import com.LSJ.Blog.service.MemberService;
 import com.LSJ.Blog.service.ReplyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.PrintStream;
 import java.security.Principal;
@@ -36,8 +34,9 @@ public class ReplyController {
         return "redirect:/articles/" + articleId;
     }
 
+    @ResponseBody
     @PostMapping("/articles/{article_id}/replies/{reply_id}/modify")
-    public String modifyReply(@PathVariable(name = "article_id")Long articleId, @PathVariable(name = "reply_id") Long replyId, ReplyModifyForm replyModifyForm, Principal principal){
+    public String modifyReply(@PathVariable(name = "article_id")Long articleId, @PathVariable(name = "reply_id") Long replyId, @RequestBody ReplyModifyForm replyModifyForm, Principal principal){
 
         Reply findReply = replyService.findById(replyId);
         Article findArticle = articleService.findById(articleId);
@@ -47,7 +46,7 @@ public class ReplyController {
         }
         replyService.modifyReply(replyModifyForm, findReply);
 
-        return "redirect:/articles/" + articleId;
+        return "성공적으로 수정되었습니다.";
     }
     @GetMapping("/articles/{article_id}/replies/{reply_id}/delete")
     public String deleteReply(@PathVariable(name = "article_id")Long articleId,@PathVariable(name = "reply_id")Long replyId,Principal principal){

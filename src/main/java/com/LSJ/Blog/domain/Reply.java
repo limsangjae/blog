@@ -37,7 +37,7 @@ public class Reply {
     }
     public void modifyReply(ReplyModifyForm replyModifyForm){
 
-        this.body = replyModifyForm.getBody();
+        this.body = replyModifyForm.getUpdateValue();
     }
     public void setMember(Member member){
         member.getReplies().add(this);
