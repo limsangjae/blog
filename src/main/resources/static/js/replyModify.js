@@ -24,16 +24,17 @@ function changeInput(e, articleId, replyId){
         const inputValue = e.parentElement.childNodes[1].value;
 
         let data = {
-            method : 'POST',
+            method : "POST",
+            headers : {
+                    'Content-Type' : 'application/json',
+                    'X-CSRF-TOKEN' : token,
+            },
             body : JSON.stringify(
                 {
-                    'updateValue' : inputValue
+                    updateValue : inputValue
                 }
             ),
-            header : {
-                'Content-Type' : 'application/json',
-                'X-CSRF-TOKEN' : token
-            },
+
 
         }
 
