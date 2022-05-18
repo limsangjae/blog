@@ -26,7 +26,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         .mvcMatchers("/",
                                 "/articles/**",
                                 "/categories/**").permitAll()
-                        .mvcMatchers("/members/**").hasRole("MEMBER")
+                        .mvcMatchers("/members/**",
+                                "/b/**"
+                                ).hasRole("MEMBER")
                 )
                 .formLogin()
                     .loginPage("/members/login")
