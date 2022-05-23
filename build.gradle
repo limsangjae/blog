@@ -34,6 +34,9 @@ dependencies {
 	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.6.7'
 
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '2.7.0'
+
+
 }
 
 tasks.named('test') {
