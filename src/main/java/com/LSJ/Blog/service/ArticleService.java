@@ -84,6 +84,17 @@ public class ArticleService {
         }
         return  articleListDto;
     }
+    public List<ArticleDTO> getArticleDtoList(List<Article> articleList){
+
+        List<ArticleDTO> articleDTOList = new ArrayList<>();
+
+        for (Article article : articleList) {
+            ArticleDTO articleDTO = new ArticleDTO(article);
+            articleDTOList.add(articleDTO);
+        }
+        return articleDTOList;
+
+    }
 
     public ArticleDTO getArticle(Long id) {
 
@@ -98,5 +109,8 @@ public class ArticleService {
     public void delete(Long id) {
         Article findArticle = findById(id);
         articleRepository.delete(findArticle);
+    }
+    public Long articleCount(){
+        return articleRepository.count();
     }
 }

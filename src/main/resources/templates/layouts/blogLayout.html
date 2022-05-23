@@ -13,12 +13,13 @@
 <body>
 
 <header th:replace="fragments/header :: general-header"></header>
+    <div class="flex flex-row">
+        <aside class="flex" th:replace="fragments/sideNav :: blog-side-nav"></aside>
 
-    <div class="contents-body" layout:fragment="contents"></div>
+        <div class="contents-body flex w-full" layout:fragment="contents"></div>
+    </div>
 
-    <aside th:replace="fragments/sideNav :: blog-side-nav"></aside>
 
-    <div class="contents-body" layout:fragment="contents"></div>
 
 </body>
 </html>

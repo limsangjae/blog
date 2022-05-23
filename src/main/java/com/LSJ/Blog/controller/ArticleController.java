@@ -8,6 +8,7 @@ import com.LSJ.Blog.dto.article.ArticleListDTO;
 import com.LSJ.Blog.dto.article.ArticleModifyForm;
 import com.LSJ.Blog.dto.article.ArticleSaveForm;
 import com.LSJ.Blog.dto.member.MemberModifyForm;
+import com.LSJ.Blog.dto.reply.ReplyListDTO;
 import com.LSJ.Blog.service.ArticleService;
 import com.LSJ.Blog.service.CategoryService;
 import com.LSJ.Blog.service.MemberService;
@@ -62,17 +63,22 @@ public class ArticleController {
                     findMember,
                     findCategory
             );
+
+            return "redirect:/b/" + principal.getName() + "?category=" + findCategory.getName();
+
         }catch (IllegalStateException e){
             model.addAttribute("err_msg", e.getMessage());
             return "usr/article/write";
         }
 
-        return "redirect:/";
     }
     @GetMapping("/articles/modify/{id}")
-    public String showModify(@PathVariable(name = "id") Long id, Principal principal, Model model){
+    public String showModify(@PathVariable(name = "id") int id, Principal principal, Model model){
 
-        Article findArticle = articleService.findById(id);
+        //Article findArticle = articleService.findById(id);
+
+        Member findMember = memberService.findByLoginId(principal.getName());
+        Article findArticle = findMember.getArticles().get(id);
 
         if(!findArticle.getMember().getLoginId().equals(principal.getName())){
             return "redirect:/";
@@ -86,16 +92,19 @@ public class ArticleController {
 
     }
     @PostMapping("/articles/modify/{id}")
-    public String doModify(@PathVariable(name = "id")Long id, @Validated ArticleModifyForm articleModifyForm, BindingResult bindingResult){
+    public String doModify(@PathVariable(name = "id")Long id, @Validated ArticleModifyForm articleModifyForm, BindingResult bindingResult,Principal principal){
 
         if (bindingResult.hasErrors()){
             return "usr/article/modify";
         }
 
+        Member findMember = memberService.findByLoginId(principal.getName());
+
         Category findCategory = categoryService.findById(articleModifyForm.getCategoryId());
+
         articleService.modifyArticle(articleModifyForm, id, findCategory);
 
-        return "redirect:/";
+        return "redirect:/b/" + principal.getName() + "?category=" + findCategory.getName();
 
     }
     @GetMapping("/articles")
@@ -112,8 +121,7 @@ public class ArticleController {
 
         ArticleDTO findArticle = articleService.getArticle(id);
 
-        model.addAttribute("article",findArticle);
-        model.addAttribute("replies",findArticle.getReplies());
+        model.addAttribute("article", findArticle);
         model.addAttribute("replyList", replyService.getDtoList());
 
         return "usr/article/detail";

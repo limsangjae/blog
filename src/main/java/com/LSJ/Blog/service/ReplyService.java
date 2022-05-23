@@ -22,6 +22,7 @@ import java.util.Optional;
 public class ReplyService {
 
     private final ReplyRepository replyRepository;
+    private final ArticleService articleService;
 
     @Transactional
     public void writeReply(ReplySaveForm replySaveForm, Member findMember, Article findArticle) {
@@ -70,7 +71,9 @@ public class ReplyService {
         for(Reply reply : replyList){
             replyListDTOList.add(new ReplyListDTO(reply));
         }
+
         return replyListDTOList;
+
 
     }
 }
