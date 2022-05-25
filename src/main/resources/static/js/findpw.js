@@ -7,7 +7,7 @@ let findContent = document.querySelector('#find-content');
 
 progress.hidden = true;
 
-findForm.addEventListener("submit", () => {
+findForm.addEventListener("submit", (e) => {
 
     e.preventDefault();
 
