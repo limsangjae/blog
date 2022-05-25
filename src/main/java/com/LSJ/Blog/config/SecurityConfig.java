@@ -22,7 +22,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests(authorize -> authorize
-                        .mvcMatchers("/members/join", "/members/login").anonymous()
+                        .mvcMatchers("/members/join",
+                                "/members/login",
+                                "/members/find/pw",
+                                "/mails/find/pw"
+                        ).anonymous()
                         .mvcMatchers("/",
                                 "/articles/**",
                                 "/categories/**").permitAll()

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<head>
+    <meta charset="UTF-8">
+    <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+    <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <title>비밀번호 찾기</title>
+</head>
+<body>
+<div layout:fragment="contents">
+    <div class="">
+        <div class="flex flex-col">
+            <h1 class="flex justify-center text-xl mt-10 font-bold">LBLOG</h1>
+            <div id="find-content" class="flex justify-center mt-7">
+                <form id="findForm" action="" method="post" class="member-bg border-2 rounded-md p-10 shadow-lg">
+
+                    <h1 class="flex text-xl mt-2 mb-2 justify-center">비밀번호 찾기</h1>
+
+                    <div class="flex flex-col mb-2">
+                        <span>아이디</span>
+                        <input id="loginId" class="border border-2 rounded-md p-2" type="text" name="loginId" autocomplete="off" placeholder="아이디를 입력해 주세요.">
+                    </div>
+
+                    <div class="flex flex-col mb-2">
+                        <span>이메일</span>
+                        <input id="email" class="border border-2 rounded-md p-2" type="text" name="email" autocomplete="off" placeholder="이메일을 입력해 주세요.">
+                    </div>
+
+                    <div class="flex justify-center mt-6">
+                        <button type="button" class="btn btn-ghost mx-2">비밀번호 찾기</button>
+                        <a href="/">
+                            <button type="button" class="btn btn-ghost mx-2">취소</button>
+                        </a>
+                    </div>
+
+                </form>
+            </div>
+            <div class="">
+                <progress id="progress" class="progress w-56"></progress>
+            </div>
+        </div>
+    </div>
+    <script src="/js/findpw.js"></script>
+</div>
+</body>
+</html>
