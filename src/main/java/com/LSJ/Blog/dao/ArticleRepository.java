@@ -21,7 +21,7 @@ public interface ArticleRepository extends JpaRepository<Article,Long> {
     Integer countKeywordAndPageWithCategory(@Param("categoryId")Long categoryId, @Param("searchKeyword") String searchKeyword);
 
 
-    @Query(value = "SELECT * FROM `article WHERE `title` LIKE :searchKeyword ORDER BY `reg_date` DESC LIMIT 10 OFFSET :startIndex", nativeQuery = true)
+    @Query(value = "SELECT * FROM `article` WHERE `title` LIKE :searchKeyword ORDER BY `reg_date` DESC LIMIT 10 OFFSET :startIndex", nativeQuery = true)
     List<Article> findAllByKeywordAndPage(
             @Param("searchKeyword") String searchKeyword,
             @Param("startIndex") int startIndex);
