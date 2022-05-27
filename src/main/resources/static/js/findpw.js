@@ -38,7 +38,7 @@ findForm.addEventListener("submit", (e) => {
         }
     }
 
-    findContent.hidden = true;
+    findContent.style.display = 'none';
     progress.hidden = false;
 
     fetch("http://localhost:8085/mails/find/pw",data)

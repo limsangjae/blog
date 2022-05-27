@@ -21,9 +21,11 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -108,10 +110,19 @@ public class ArticleController {
 
     }
     @GetMapping("/articles")
-    public String showList(Model model){
-        List<ArticleListDTO> articles = articleService.getArticleList();
+    public String showList(
+            @RequestParam(name = "searchKeyword", defaultValue = "")String searchKeyword,
+            @RequestParam(name = "page", defaultValue = "1") int currentPage,
+            @RequestParam(name = "categoryId",defaultValue = "0")Long categoryId,
+            Model model){
 
-        model.addAttribute("articles",articles);
+        Map<String, Object> articleListInfo = articleService.searchArticle(categoryId, currentPage, searchKeyword);
+
+        int articleListCount = (int) Math.ceil((int)articleListInfo.get("articleListCount") / (double)10);
+
+        model.addAttribute("searchArticle",articleListInfo.get("articleDTOList"));
+        model.addAttribute("page", currentPage);
+        model.addAttribute("maxSize",articleListCount);
 
         return "usr/article/list";
     }

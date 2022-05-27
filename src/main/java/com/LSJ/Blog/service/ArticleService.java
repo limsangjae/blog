@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Transactional(readOnly = true)
@@ -112,5 +110,41 @@ public class ArticleService {
     }
     public Long articleCount(){
         return articleRepository.count();
+    }
+
+    public Map<String, Object> searchArticle(Long categoryId, int currentPage, String keyword){
+
+        Map<String, Object> result = new HashMap<>();
+
+        keyword.trim();
+        keyword = "%" + keyword + "%";
+
+        if(currentPage == 1){
+            currentPage = 0;
+        }else {
+            currentPage = ((currentPage-1) *10) + 1 ;
+        }
+
+        List<Article> articleList;
+
+        if(categoryId == 0){
+            articleList = articleRepository.findAllByKeywordAndPage(keyword, currentPage);
+            Integer articleListCount = articleRepository.countByKeywordAndPage(keyword);
+            result.put("articleListCount", articleListCount);
+        }else {
+            articleList = articleRepository.findByKeywordAndPageWithCategory(categoryId, keyword, currentPage);
+            Integer articleListCount = articleRepository.countKeywordAndPageWithCategory(categoryId, keyword);
+            result.put("articleListCount",articleListCount);
+        }
+
+        List<ArticleDTO> articleDTOList = new ArrayList<>();
+        for(Article article : articleList){
+            ArticleDTO articleDTO = new ArticleDTO(article);
+            articleDTOList.add(articleDTO);
+        }
+        result.put("articleDTOList",articleDTOList);
+
+        return result;
+
     }
 }
