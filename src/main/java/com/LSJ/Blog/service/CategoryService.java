@@ -76,6 +76,13 @@ public class CategoryService {
     @Transactional
     public void delete(Long id) {
         Category findCategory = findById(id);
+
+        List<Article> articles = findCategory.getArticles();
+
+        for (Article article : articles){
+            article.setCategory(null);
+        }
+
         categoryRepository.delete(findCategory);
     }
 

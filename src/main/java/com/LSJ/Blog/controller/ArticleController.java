@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.security.Principal;
 import java.util.List;
 import java.util.Map;
@@ -48,7 +50,7 @@ public class ArticleController {
     }
 
     @PostMapping("/articles/write")
-    public String doWrite(@Validated ArticleSaveForm articleSaveForm, BindingResult bindingResult, Principal principal, Model model){
+    public String doWrite(@Validated ArticleSaveForm articleSaveForm, BindingResult bindingResult, Principal principal, Model model) throws UnsupportedEncodingException {
 
         if (bindingResult.hasErrors()){
 
@@ -58,6 +60,9 @@ public class ArticleController {
 
         try {
             Category findCategory = categoryService.findById(articleSaveForm.getCategoryId());
+
+            String categoryName = URLEncoder.encode(findCategory.getName(),"UTF-8");
+
             Member findMember = memberService.findByLoginId(principal.getName());
 
             articleService.save(
@@ -66,7 +71,7 @@ public class ArticleController {
                     findCategory
             );
 
-            return "redirect:/b/" + principal.getName() + "?category=" + findCategory.getName();
+            return "redirect:/b/" + principal.getName() + "?category=" + categoryName;
 
         }catch (IllegalStateException e){
             model.addAttribute("err_msg", e.getMessage());
@@ -94,7 +99,7 @@ public class ArticleController {
 
     }
     @PostMapping("/articles/modify/{id}")
-    public String doModify(@PathVariable(name = "id")Long id, @Validated ArticleModifyForm articleModifyForm, BindingResult bindingResult,Principal principal){
+    public String doModify(@PathVariable(name = "id")Long id, @Validated ArticleModifyForm articleModifyForm, BindingResult bindingResult,Principal principal) throws UnsupportedEncodingException {
 
         if (bindingResult.hasErrors()){
             return "usr/article/modify";
@@ -104,9 +109,11 @@ public class ArticleController {
 
         Category findCategory = categoryService.findById(articleModifyForm.getCategoryId());
 
+        String categoryName = URLEncoder.encode(findCategory.getName(),"UTF-8");
+
         articleService.modifyArticle(articleModifyForm, id, findCategory);
 
-        return "redirect:/b/" + principal.getName() + "?category=" + findCategory.getName();
+        return "redirect:/b/" + principal.getName() + "?category=" + categoryName;
 
     }
     @GetMapping("/articles")
