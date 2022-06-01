@@ -81,4 +81,13 @@ public class MemberService implements UserDetailsService {
     public boolean isDupleMember(String loginId){
         return memberRepository.existsByLoginId(loginId);
     }
+
+    @Transactional
+    public void deleteMember(String loginId) {
+
+        Member findMember = findByLoginId(loginId);
+
+        memberRepository.delete(findMember);
+
+    }
 }

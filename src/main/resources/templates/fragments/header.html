@@ -3,6 +3,8 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
+    <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+    <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
     <title>Title</title>
 </head>
 <header th:fragment="general-header">
@@ -36,11 +38,16 @@
                         <li>
                             <a th:href="@{~/members/logout}">로그아웃</a>
                         </li>
+                        <li>
+                            <a th:attr="onclick=|removeMember('${#authentication.name}')|">
+                                <button>회원탈퇴</button>
+                            </a>
+                        </li>
                     </ul>
                 </li>
             </ul>
         </div>
     </div>
-
+    <script src="/js/deleteMember.js"></script>
 </header>
 </html>

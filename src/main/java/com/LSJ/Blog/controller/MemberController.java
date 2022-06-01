@@ -10,9 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
@@ -77,4 +75,17 @@ public class MemberController {
         return "usr/member/findPw";
     }
 
+    @DeleteMapping("/members")
+    @ResponseBody
+    public boolean doDelete(@RequestBody String loginId, Principal principal){
+
+        if(!loginId.equals(principal.getName())){
+            return false;
+        }
+
+        memberService.deleteMember(loginId);
+
+        return true;
+
+    }
 }
