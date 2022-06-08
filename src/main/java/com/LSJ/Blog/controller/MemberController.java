@@ -2,6 +2,7 @@ package com.LSJ.Blog.controller;
 
 
 import com.LSJ.Blog.domain.Member;
+import com.LSJ.Blog.dto.member.CheckStatus;
 import com.LSJ.Blog.dto.member.MemberModifyForm;
 import com.LSJ.Blog.dto.member.MemberSaveForm;
 import com.LSJ.Blog.service.MemberService;
@@ -90,6 +91,18 @@ public class MemberController {
         memberService.deleteMember(loginId);
 
         return true;
+
+    }
+    @RequestMapping("/members/check/id")
+    @ResponseBody
+    public CheckStatus checkDuple(@RequestParam String loginId){
+
+        boolean isExists = memberService.isDupleMember(loginId);
+
+        CheckStatus checkStatus = new CheckStatus(isExists);
+
+        return checkStatus;
+
 
     }
 }

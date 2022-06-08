@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>회원가입</title>
+    <script src="/js/join.js"></script>
 </head>
 <body>
 <div layout:fragment="contents">
@@ -15,7 +16,7 @@
 
             <div class="flex justify-center mt-7">
 
-                <form th:action="@{~/members/join}" th:object="${memberSaveForm}" method="post" class="member-bg border-2 rounded-md p-10 shadow-lg">
+                <form th:action="@{~/members/join}" th:object="${memberSaveForm}" method="post" onsubmit="return checkStatus()" class="member-bg border-2 rounded-md p-10 shadow-lg">
 
                     <h1 class="flex text-xl mt-2 mb-2 justify-center">회원가입</h1>
 
@@ -23,6 +24,7 @@
                         <span>아이디</span>
                         <input class="border border-2 rounded-md p-2" type="text" name="loginId" placeholder="아이디를 입력해 주세요." th:field="*{loginId}" th:errorclass="field-error">
                         <span class="error-msg" th:errors="*{loginId}">error!</span>
+                        <button type="button" onclick="checkDupleLoginId()">중복확인</button>
                     </div>
 
                     <div class="flex flex-col mb-2">

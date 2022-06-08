@@ -27,7 +27,7 @@
                     </a>
                     <ul class="p-2 bg-base-100">
                         <li>
-                            <a th:href="@{~/b/} + ${#authentication.name}">블로그</a>
+                            <a th:href="@{~/b/} + ${#authentication.name} +@{/blog}">블로그</a>
                         </li>
                         <li>
                             <a th:href="@{~/articles/write}">게시글 작성</a>
