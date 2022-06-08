@@ -41,7 +41,7 @@ public class Member implements UserDetails {
     @OneToMany(mappedBy = "member",cascade = CascadeType.REMOVE)
     private List<Reply> replies = new ArrayList<>();
 
-    @OneToOne(mappedBy = "member")
+    @OneToOne(mappedBy = "member", cascade = CascadeType.REMOVE)
     private MyBlog myBlog;
 
     private LocalDateTime regDate = LocalDateTime.now();

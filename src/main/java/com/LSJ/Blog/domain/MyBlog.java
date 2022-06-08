@@ -19,7 +19,7 @@ public class MyBlog {
 
     private String blogDesc;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "member_id")
     private Member member;
 

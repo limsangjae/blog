@@ -2,7 +2,7 @@ let token = document.querySelector("meta[name = '_csrf']").getAttribute("content
 
 async function removeMember(loginId){
 
-    if(window.confirm("정말 탈퇴하시겠습니까? 탈퇴 후 정보 복구가 불가능 합니다.")){
+    if(!window.confirm("정말 탈퇴하시겠습니까? 탈퇴 후 정보 복구가 불가능 합니다.")){
         return;
     }
 
