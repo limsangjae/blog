@@ -55,7 +55,9 @@ public class Article {
 
     public void setCategory(Category category){
         this.category = category;
-        category.getArticles().add(this);
+        if(category != null){
+            category.getArticles().add(this);
+        }
     }
 
     public void modifyArticle(String title, String body) {

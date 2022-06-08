@@ -18,9 +18,13 @@
                 <form th:action="@{~/articles/modify/} + ${id}" th:object="${articleModifyForm}" method="post" class="w-9/12">
 
                     <select class="select select-bordered w-full max-w-xs mb-4" name="categoryId" required>
-                        <th:block th:each="category : ${categoryList}">
+                        <th:block th:if="${selectedCategory != null}" th:each="category : ${categoryList}">
                             <option th:if="${category.id} == ${selectedCategory}" th:value="${category.id}" th:text="${category.name}" selected></option>
                             <option th:unless="${category.id} == ${selectedCategory}" th:value="${category.id}" th:text="${category.name}"></option>
+                        </th:block>
+                        <th:block th:unless="${selectedCategory != 0}" th:each="category : ${categoryList}">
+                            <option value="none" disabled selected>미등록</option>
+                            <option th:value="${category.id}" th:text="${category.name}"></option>
                         </th:block>
                     </select>
 

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -65,7 +66,11 @@ public class MyBlogService {
     }
 
     public List<ArticleDTO> getArticles() {
-        return articleService.getArticleDTOList();
+        List<ArticleDTO> articleList = articleService.getArticleDTOList();
+
+        Collections.reverse(articleList);
+
+        return  articleList;
     }
 
     public List<ArticleDTO> getArticleByCategoryName(String categoryName) {
@@ -87,4 +92,38 @@ public class MyBlogService {
 
         return articles;
     }
+
+    public List<ArticleDTO> getNoCategoryArticleList(String loginId){
+        Member findMember = memberService.findByLoginId(loginId);
+
+        List<Article> articles = findMember.getArticles();
+
+        List<ArticleDTO> result = new ArrayList<>();
+
+        for (Article article : articles){
+            if (article.getCategory() == null){
+                result.add(new ArticleDTO(article));
+            }
+        }
+
+        Collections.reverse(result);
+
+        return  result;
+    }
+    public int getNoCategoryArticleListSize(String loginId){
+        Member findMember = memberService.findByLoginId(loginId);
+
+        List<Article> articles = findMember.getArticles();
+
+        List<ArticleDTO> result =  new ArrayList<>();
+
+        for (Article article : articles){
+            if(article.getCategory() == null){
+                result.add(new ArticleDTO(article));
+            }
+        }
+
+        return result.size();
+    }
+
 }

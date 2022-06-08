@@ -85,15 +85,21 @@ public class ArticleController {
         //Article findArticle = articleService.findById(id);
 
         Member findMember = memberService.findByLoginId(principal.getName());
-        Article findArticle = findMember.getArticles().get(id);
+        Article findArticle = findMember.getArticles().get(id - 1);
 
         if(!findArticle.getMember().getLoginId().equals(principal.getName())){
             return "redirect:/";
         }
+
+        if(findArticle.getCategory() != null){
+            findArticle.getCategory().getId();
+        }else{
+            model.addAttribute("selectedCategory",null);
+        }
+
         model.addAttribute("articleModifyForm", new ArticleModifyForm(findArticle));
         model.addAttribute("id",id);
         model.addAttribute("categoryList", categoryService.findAll());
-        model.addAttribute("selectedCategory",findArticle.getCategory().getId());
 
         return "usr/article/modify";
 

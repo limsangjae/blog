@@ -31,7 +31,7 @@
                     <div class="flex flex-col px-10" >
 
                         <ul class="p-4 w-full border border-1" >
-                            <li class="p-4 w-full border border-b" th:each="article : ${searchArticle}">
+                            <li class="p-4 w-full border border-b" th:if="${searchArticle.size() != 0}" th:each="article : ${searchArticle}">
                                 <a th:href="@{~/articles/} + ${article.id}">
                                     <div class="flex flex-col justify-start items-start">
                                         <div th:text="${article.title}">
@@ -46,6 +46,9 @@
                                     </span>
                                             <span class="mx-4" th:text="${#temporals.format(article.regDate, 'yyyy-MM-dd hh:mm')}">
                                         regDate
+                                    </span>
+                                    <span th:unless="${searchArticle.size() != 0}">
+                                        결과가 없습니다.
                                     </span>
                                         </div>
                                     </div>

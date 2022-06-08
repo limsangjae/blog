@@ -9,6 +9,11 @@
         <li class="menu-title">
             <span>Category</span>
         </li>
+        <li>
+            <a th:href="@{~/b/} + ${loginId} + @{?category=none}">
+                카테고리 미등록 ( [[${info.noCateArticleSize}]] )
+            </a>
+        </li>
         <li th:each="category : ${info.categoryDTOList}">
             <a th:text="|${category.name}(${category.articleAmount})|" th:href="@{~/b/} + ${loginId} + @{?category=} + ${category.name}">Item 1</a>
         </li>

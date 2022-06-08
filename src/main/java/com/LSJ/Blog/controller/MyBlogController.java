@@ -68,6 +68,8 @@ public class MyBlogController {
 
         if(categoryName.equals("all")){
             model.addAttribute("articleList", articleByLoginId);
+        }else if(categoryName.equals("none")){
+            model.addAttribute("articleList", myBlogService.getNoCategoryArticleList(loginId));
         }else{
             model.addAttribute("articleList", myBlogService.getArticleByCategoryName(categoryName));
         }
