@@ -103,6 +103,25 @@ public class MemberController {
 
         return checkStatus;
 
+    }
+    @RequestMapping("/members/check/nickname")
+    @ResponseBody
+    public CheckStatus checkNickname(@RequestParam String nickname){
 
+        boolean isExists = memberService.idDupleNickname(nickname);
+
+        CheckStatus checkStatus = new CheckStatus(isExists);
+
+        return checkStatus;
+    }
+
+    @RequestMapping("/members/check/email")
+    @ResponseBody
+    public CheckStatus checkEmail(@RequestParam String email){
+        boolean isExists = memberService.isDupleEmail(email);
+
+        CheckStatus checkStatus =  new CheckStatus(isExists);
+
+        return checkStatus;
     }
 }

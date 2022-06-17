@@ -22,7 +22,7 @@
 
                     <div class="flex flex-col mb-2">
                         <span>아이디</span>
-                        <input class="border border-2 rounded-md p-2" type="text" name="loginId" placeholder="아이디를 입력해 주세요." th:field="*{loginId}" th:errorclass="field-error">
+                        <input id="loginId" class="border border-2 rounded-md p-2" type="text" name="loginId" placeholder="아이디를 입력해 주세요." th:field="*{loginId}" th:errorclass="field-error">
                         <span class="error-msg" th:errors="*{loginId}">error!</span>
                         <button type="button" onclick="checkDupleLoginId()">중복확인</button>
                     </div>
@@ -41,14 +41,16 @@
 
                     <div class="flex flex-col mb-2">
                         <span>닉네임</span>
-                        <input class="border border-2 rounded-md p-2" type="text" name="nickname" placeholder="닉네임을 입력해 주세요." th:field="*{nickname}" th:errorclass="field-error">
+                        <input id="nickname" class="border border-2 rounded-md p-2" type="text" name="nickname" placeholder="닉네임을 입력해 주세요." th:field="*{nickname}" th:errorclass="field-error">
                         <span class="error-msg" th:errors="*{nickname}"></span>
+                        <button type="button" onclick="checkDupleNickname()">중복 확인</button>
                     </div>
 
                     <div class="flex flex-col mb-2">
                         <span>이메일</span>
-                        <input class="border border-2 rounded-md p-2" type="email" name="email" placeholder="이메일을 입력해 주세요." th:field="*{email}" th:errorclass="field-error">
+                        <input id="email" class="border border-2 rounded-md p-2" type="email" name="email" placeholder="이메일을 입력해 주세요." th:field="*{email}" th:errorclass="field-error">
                         <span class="error-msg" th:errors="*{email}"></span>
+                        <button type="button" onclick="checkDupleEmail()">중복 확인</button>
                     </div>
 
                     <div class="flex justify-center mt-6">
